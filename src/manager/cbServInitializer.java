@@ -11,6 +11,8 @@ import java.util.ArrayList;
 /**
  *
  * @author egand
+ * Initializes the cardboard box DB, not necessary for final program but good
+ * practice for using JDBC and visualizing everything.
  */
 public class cbServInitializer {
 
@@ -22,7 +24,6 @@ public class cbServInitializer {
                 String host = "jdbc:mysql://localhost:3306/cardboard_db";
                 con = DriverManager.getConnection(host, user, pass);
                 st = con.createStatement();
-                ArrayList<String> i = new ArrayList<>();
                 try {
                     String uInit = "CREATE TABLE Users("
                             + "ID INT PRIMARY KEY,"
@@ -40,9 +41,9 @@ public class cbServInitializer {
                             + ")";
                     st.executeUpdate(pInit);
                     String bioInit = "CREATE TABLE Biography("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
-                            + "Name varchar(255), "
+                            + "Name varchar(255) UNIQUE, "
                             + "Age INT, "
                             + "Job varchar(255), "
                             + "Race varchar(255), "
@@ -51,7 +52,7 @@ public class cbServInitializer {
                             + "Morality varchar(255))";
                     st.executeUpdate(bioInit);
                     String healthInit = "CREATE TABLE HealthState("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
                             + "Health INT, "
                             + "Will INT, "
@@ -60,7 +61,7 @@ public class cbServInitializer {
                     st.executeUpdate(healthInit);
                     
                     String charisma = "CREATE TABLE Charisma ("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
                             + "Rank TINYINT(3) NOT NULL DEFAULT 0, "
                             + "Hustle TINYINT(12) NOT NULL DEFAULT 0, "
@@ -70,7 +71,7 @@ public class cbServInitializer {
                             + ")";
                     st.executeUpdate(charisma);
                     String combat = "CREATE TABLE Combat ("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
                             + "Rank TINYINT(3) NOT NULL DEFAULT 0, "
                             + "Magic TINYINT(12) NOT NULL DEFAULT 0, "
@@ -80,7 +81,7 @@ public class cbServInitializer {
                             + ")";
                     st.executeUpdate(combat);
                     String constitution = "CREATE TABLE Constitution ("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
                             + "Rank TINYINT(3) NOT NULL DEFAULT 0, "
                             + "Travel TINYINT(12) NOT NULL DEFAULT 0, "
@@ -90,7 +91,7 @@ public class cbServInitializer {
                             + ")";
                     st.executeUpdate(constitution);
                     String dexterity = "CREATE TABLE Dexterity ("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
                             + "Rank TINYINT(3) NOT NULL DEFAULT 0, "
                             + "Acrobatics TINYINT(12) NOT NULL DEFAULT 0, "
@@ -100,7 +101,7 @@ public class cbServInitializer {
                             + ")";
                     st.executeUpdate(dexterity);
                     String intelligence = "CREATE TABLE Intelligence ("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
                             + "Rank TINYINT(3) NOT NULL DEFAULT 0, "
                             + "Investigate TINYINT(12) NOT NULL DEFAULT 0, "
@@ -110,7 +111,7 @@ public class cbServInitializer {
                             + ")";
                     st.executeUpdate(intelligence);
                     String melee = "CREATE TABLE Melee ("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
                             + "Rank TINYINT(3) NOT NULL DEFAULT 0, "
                             + "Assault TINYINT(12) NOT NULL DEFAULT 0, "
@@ -120,7 +121,7 @@ public class cbServInitializer {
                             + ")";
                     st.executeUpdate(melee);
                     String ranged = "CREATE TABLE Ranged ("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
                             + "Rank TINYINT(3) NOT NULL DEFAULT 0, "
                             + "Fire TINYINT(12) NOT NULL DEFAULT 0, "
@@ -130,7 +131,7 @@ public class cbServInitializer {
                             + ")";
                     st.executeUpdate(ranged);
                     String strength = "CREATE TABLE Strength ("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
                             + "Rank TINYINT(3) NOT NULL DEFAULT 0, "
                             + "Strongarm TINYINT(12) NOT NULL DEFAULT 0, "
@@ -140,7 +141,7 @@ public class cbServInitializer {
                             + ")";
                     st.executeUpdate(strength);
                     String wisdom = "CREATE TABLE Wisdom ("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
                             + "Rank TINYINT(3) NOT NULL DEFAULT 0, "
                             + "Survey TINYINT(12) NOT NULL DEFAULT 0, "
@@ -150,7 +151,7 @@ public class cbServInitializer {
                             + ")";
                     st.executeUpdate(wisdom);
                     String charInit = "CREATE TABLE CharacterState ("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
                             + "TotalEXP INT, "
                             + "CurrentEXP INT, "
@@ -161,7 +162,7 @@ public class cbServInitializer {
                             + ")";
                     st.executeUpdate(charInit);
                     String rollInit = "CREATE TABLE Roll ("
-                            + "Player INT, "
+                            + "Player INT UNIQUE, "
                             + "FOREIGN KEY(Player) REFERENCES Player(ID), "
                             + "DiceArray varchar(60) DEFAULT '0', "
                             + "Successes TINYINT DEFAULT 0, "
@@ -208,14 +209,12 @@ public class cbServInitializer {
                     st.executeUpdate(spellbookInit);
                     System.out.println("Successfully Created Table!");
                 } catch (Exception e) {
-                    System.out.println("Error occurred.");
-                    e.printStackTrace();
-                    System.out.println("Clearing DB.");
-                    String ex = "DROP DATABASE cardboard_db";
-                    st.executeUpdate(ex);
-                    System.out.println("Creating new DB.");
-                    String cr = "CREATE DATABASE cardboard_db";
-                    st.executeUpdate(cr);
+                    System.out.println("Table already exists.");
+//                    String del = "DROP DATABASE cardboard_db";
+//                    st.executeUpdate(del);
+//                    String cre = "CREATE DATABASE cardboard_db";
+//                    st.executeUpdate(cre);
+//                    System.out.println("Cleared and created new table");
                 }
             } catch (SQLException e) {
                 

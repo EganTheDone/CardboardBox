@@ -7,7 +7,6 @@ package cardboardbox.player;
 
 import cardboardbox.rolls.*;
 import java.io.Serializable;
-
 /**
  *
  * @author egand

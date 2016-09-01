@@ -6,9 +6,11 @@
 package cardboardbox;
 
 import cardboardbox.player.*;
+import java.sql.*;
 import manager.*;
 import java.util.Scanner;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,38 +26,25 @@ public class CardboardBox {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         SheetManager mg = new SheetManager();
-        cbServInitializer serv= new cbServInitializer();
-        String name = "Alessandro Draconis";
-        Player player = mg.loadPlayer("C:\\cardboard box\\"+name+".sheet");
-        String user = "root";
-        String password = "0269";       
+        cbServInitializer serv = new cbServInitializer();
+
+        /*TODO password security*/
+        String user = in.next();
+        String password = in.next();
+        
+        /*TODO remove clunky initialzer with faster install process*/
         serv.initDB(user, password, 0);
-        HeroicSkills sk = player.getSkills();
-        player.getHeroicRoll().newRoll(sk.getStrength().getRank(), sk.getStrength().getStrongarm());
-        //player.getHeroicRoll().dumpRoll();
-        mg.savePlayer(player);
+        Connection con = null;
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cardboard_db", user, password);
+        } catch (SQLException ex) {
+            Logger.getLogger(CardboardBox.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Player player = new Player();
+
+        mg.savePlayer(player, con, "root", 1);
 
     }
 
 }
-/*
-int suc = 0, fum=0, neu=0;
-        int y = 1000;
-for(int z=y;z>0;z--){
-        
-        player.getHeroicRoll().newRoll(skill, stat);
-        
-        
-        suc+=player.getHeroicRoll().getSuccesses();
-        fum+=player.getHeroicRoll().getFumbles();
-        neu+=player.getHeroicRoll().getNeutrals();
-        }
-        long perc = (long)((skill+2)*y);
-        System.out.print("Successes: "+suc+" | ");
-        System.out.println(" "+(((double)suc)/perc)*100+"%");
-        System.out.print("Neutral:   "+neu+" | ");
-        System.out.println(" "+(((double)neu)/perc)*100+"%");
-        System.out.print("Fumbles:   "+fum+" | ");
-        System.out.println(" "+(((double)fum)/perc)*100+"%");
-        System.out.println((long)(suc+fum+neu));  
- */
+
