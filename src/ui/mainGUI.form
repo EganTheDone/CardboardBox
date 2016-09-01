@@ -22,6 +22,11 @@
             <Property name="text" type="java.lang.String" value="Biography"/>
           </Properties>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Connect"/>
+          </Properties>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>
@@ -946,7 +951,7 @@
                           <Component id="jScrollPane27" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="acrobB" min="-2" max="-2" attributes="0"/>
+                          <Component id="acrobB" min="-2" pref="23" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="sneakB" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>

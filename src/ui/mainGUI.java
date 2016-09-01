@@ -159,6 +159,7 @@ public class mainGUI extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -601,7 +602,7 @@ public class mainGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(acrobB)
+                        .addComponent(acrobB, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sneakB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -820,6 +821,9 @@ public class mainGUI extends javax.swing.JFrame {
         jMenu3.setText("Biography");
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setText("Connect");
+        jMenuBar1.add(jMenu4);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -922,17 +926,7 @@ public class mainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton21ActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        JFileChooser chooser = new JFileChooser();
-        SheetManager sm = new SheetManager();
-            int status = chooser.showOpenDialog(null);
-            if (status == JFileChooser.APPROVE_OPTION) {
-                File file = chooser.getSelectedFile();
-                if (file == null) {
-                    return;
-                }
-                this.player = sm.loadPlayer(file);
-                sm.loadSheet(this.player, this);
-            }
+
 
     }//GEN-LAST:event_jMenu1MouseClicked
 
@@ -1009,6 +1003,7 @@ public class mainGUI extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
